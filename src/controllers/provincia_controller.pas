@@ -1,6 +1,6 @@
 {$UNITPATH models}
 
-unit estancia_controller;
+unit provincia_controller;
 
 interface
     uses provincia_model in 'src/models/provincia_model.pas';
@@ -17,7 +17,7 @@ implementation
         crearLasProvincias:= 'Provincias creadas con éxito';
     end;
 
-    function obtenerTodasLasProvincias(): TListaDeEstancias;
+    function obtenerTodasLasProvincias(): TListaDeProvincias;
     var provinciasEncontradas: TListaDeProvincias;
     begin
         // TODO: lógica para buscar todas las provincias en archivo
