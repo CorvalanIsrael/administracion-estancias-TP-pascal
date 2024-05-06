@@ -3,9 +3,9 @@ unit provincia_model;
 interface
 
 type TProvincia = record
-    cod_provincia: string;
-    denominacion: string;
-    telefono_turismo: string;
+    nombre: string;
+    codProvincia: string;
+    numeroTurismo: integer;
 end;
 
 type TListaDeProvincias = array of TProvincia;

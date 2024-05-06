@@ -7,7 +7,7 @@ type TDomicilio = record
     numero: string;
     piso: string;
     ciudad: string;
-    cod_provincia: string;
+    codProvincia: string;
     codigoPostal: string;
 end;
 
