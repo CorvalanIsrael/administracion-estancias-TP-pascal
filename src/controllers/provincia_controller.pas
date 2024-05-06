@@ -1,27 +1,61 @@
 {$UNITPATH models}
+{$mode Delphi}
 
 unit provincia_controller;
 
 interface
-    uses provincia_model in 'src/models/provincia_model.pas';
+    uses 
+        sysUtils,
+        provincia_model in 'src/models/provincia_model.pas',
+        constantes in 'src/utils/constantes.pas';
 
-    function crearLasProvincias(): string;
-    function obtenerTodasLasProvincias(): TListaDeProvincias;
+    function crearProvinciasController(): string;
+    function obtenerProvinciasController(): TListaDeProvincias;
 
 implementation
 
-    function crearLasProvincias(): string;
+    function crearProvinciasController(): string;
+    var 
+        archivo: file of TProvincia;
+        provincias: TListaDeProvincias;
+        provincia: TProvincia;
     begin
-        // TODO: lógica para crear provincias en archivo
-        writeln('Creando provincias...');
-        crearLasProvincias:= 'Provincias creadas con éxito';
+        provincias:= ConstProvincias();
+        try
+            assignFile(archivo, 'data/provincias.dat');
+            rewrite(archivo);
+
+            for provincia in provincias do
+            begin
+                write(archivo, provincia);
+            end;
+            
+            closeFile(archivo);
+            crearProvinciasController:= 'Provincias insertadas con éxito.'
+        except
+            on E: Exception do
+                crearProvinciasController:= 'Error insertar las provincias: ' + E.Message;
+        end;
     end;
 
-    function obtenerTodasLasProvincias(): TListaDeProvincias;
-    var provinciasEncontradas: TListaDeProvincias;
+    function obtenerProvinciasController(): TListaDeProvincias;
+    var 
+        archivo: file of TProvincia;
+        provincia: TProvincia;
+        provinciasEncontradas: TListaDeProvincias;
     begin
-        // TODO: lógica para buscar todas las provincias en archivo
-        writeln('Buscando provincias...');
-        obtenerTodasLasProvincias:= provinciasEncontradas;
+        assignFile(archivo, 'data/provincias.dat');
+        reset(archivo);
+        try
+            while not Eof(archivo) do
+            begin
+                read(archivo, provincia);
+                setLength(provinciasEncontradas, Length(provinciasEncontradas) + 1);
+                provinciasEncontradas[High(provinciasEncontradas)]:= provincia;
+            end;
+        finally
+            closeFile(archivo);
+            obtenerProvinciasController:= provinciasEncontradas;
+        end;
     end;
 end.
