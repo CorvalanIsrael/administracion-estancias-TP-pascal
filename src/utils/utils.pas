@@ -12,19 +12,21 @@ procedure LeerOpcionMenuPrincipal();
 implementation
 
 uses
+    crt,
     sysUtils,
     provincia_model in 'src/models/provincia_model.pas',
     estancia_model in 'src/models/estancia_model.pas',
     agregar_estancia in 'src/views/agregar_estancia.pas',
     eliminar_estancia in 'src/views/eliminar_estancia.pas',
     modificar_estancia in 'src/views/modificar_estancia.pas',
-    lista_estancias in 'src/views/lista_estancias.pas';
+    lista_estancias in 'src/views/lista_estancias.pas',
+    provincia_controller in 'src/controllers/provincia_controller.pas';
 
 
     procedure CrearArchivos();
     var carpetaData: string;
-        archivoProvincias: file of TProvincia;
         archivoEstancias: file of TEstancia;
+        resultado: string;
     begin
         carpetaData := 'data';
 
@@ -35,9 +37,8 @@ uses
 
         if not fileExists(carpetaData + '\provincias.dat') then
         begin
-            assignFile(archivoProvincias, carpetaData + '\provincias.dat');
-            rewrite(archivoProvincias);
-            closeFile(archivoProvincias);
+            resultado:= crearProvinciasController();
+            writeln(resultado);
         end;
 
         if not fileExists(CarpetaData + '\estancias.dat') then
@@ -49,8 +50,10 @@ uses
     end;
 
     procedure InicializarPrograma();
+
     begin
         try
+            ClrScr();
             CrearArchivos();
         except
             on E: Exception do
