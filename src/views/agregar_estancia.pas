@@ -1,4 +1,4 @@
-{$UNITPATH utils, controllers, models}
+{$UNITPATH utils, controllers, models, views}
 
 unit agregar_estancia;
     
@@ -6,7 +6,8 @@ interface
     uses 
     crt,
     estancia_controller in 'src/controllers/estancia_controller.pas',
-    estancia_model in 'src/models/estancia_model.pas';
+    estancia_model in 'src/models/estancia_model.pas',
+    lista_provincia in 'src/views/lista_provincia.pas';
     
     procedure PintarAgregarEstancia();
     function crearEstancia(): TEstancia;
@@ -35,9 +36,11 @@ implementation
         readln(nuevoDomicilio.ciudad);
         write('Ingrese codigo postal: ');
         readln(nuevoDomicilio.codigoPostal);
+        mostrarProvinciasView();
+        write('Ingrese codigo provincia: ');
+        readln(nuevoDomicilio.codProvincia);
 
         nuevaEstancia.domicilio:= nuevoDomicilio;
-        
         crearEstancia:= nuevaEstancia;
     end;
 

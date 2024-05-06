@@ -13,7 +13,7 @@ implementation
 
     procedure PintarMenuPrincipal();
     begin
-        ClrScr();
+        writeln(' ');
         writeln('=============================================');
         writeln('            SELECCIONA UNA OPCION            ');
         writeln('=============================================');
