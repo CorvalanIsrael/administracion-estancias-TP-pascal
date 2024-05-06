@@ -1,12 +1,12 @@
-{$UNITPATH controllers, models, utils, views}
+{$UNITPATH , models, utils, views}
 
 program main;
 
 uses 
-    menu_principal in 'src/views/menu_principal.pas',
-    provincia_controller in 'src/controllers/provincia_controller.pas';
+    utils in 'src/utils/utils.pas',
+    menu_principal in 'src/views/menu_principal.pas';
 
 begin
-    crearLasProvincias();
+    InicializarPrograma();
     PintarMenuPrincipal();
 end.
