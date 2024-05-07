@@ -3,8 +3,9 @@
 unit constantes;
 
 interface
-
     uses provincia_model in 'src/models/provincia_model.pas';
+
+    const COD_PROVINCIAS: TCodigosProvincia = ('AR-B', 'AR-C', 'AR-K', 'AR-H','AR-U','AR-X','AR-W','AR-E','AR-P','AR-Y','AR-L','AR-F','AR-M','AR-N','AR-Q','AR-R','AR-A','AR-J','AR-D','AR-Z','AR-S','AR-G','AR-V','AR-T');
 
     const PROVINCIAS: TListaDeProvincias = (
         (nombre: 'Buenos Aires'; codProvincia: 'AR-B'; numeroTurismo: 1500000),
@@ -33,11 +34,18 @@ interface
         (nombre: 'Tucumán'; codProvincia: 'AR-T'; numeroTurismo: 200000)
     );
 
+
     function ProvinciasConst(): TListaDeProvincias;
+    function CodigosProvinciasConst(): TCodigosProvincia;
 
 implementation
     function ProvinciasConst(): TListaDeProvincias;
     begin
         ProvinciasConst:= PROVINCIAS;
+    end;
+
+    function CodigosProvinciasConst(): TCodigosProvincia ;
+    begin
+        CodigosProvinciasConst:= COD_PROVINCIAS;
     end;
 end. 

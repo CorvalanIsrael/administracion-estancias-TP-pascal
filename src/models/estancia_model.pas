@@ -25,6 +25,7 @@ type TEstancia = record
 end;
 
 type TListaDeEstancias = array of TEstancia;
+type TCodigosProvincia = array of string;
 
 implementation
     
