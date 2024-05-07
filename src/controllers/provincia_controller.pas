@@ -20,7 +20,7 @@ implementation
         provincias: TListaDeProvincias;
         provincia: TProvincia;
     begin
-        provincias:= ConstProvincias();
+        provincias:= ProvinciasConst();
         try
             assignFile(archivo, 'data/provincias.dat');
             rewrite(archivo);
@@ -50,8 +50,8 @@ implementation
             while not Eof(archivo) do
             begin
                 read(archivo, provincia);
-                setLength(provinciasEncontradas, Length(provinciasEncontradas) + 1);
-                provinciasEncontradas[High(provinciasEncontradas)]:= provincia;
+                setLength(provinciasEncontradas, length(provinciasEncontradas) + 1);
+                provinciasEncontradas[high(provinciasEncontradas)]:= provincia;
             end;
         finally
             closeFile(archivo);

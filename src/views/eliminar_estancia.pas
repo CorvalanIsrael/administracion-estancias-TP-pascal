@@ -5,12 +5,12 @@ unit eliminar_estancia;
 interface
     
     
-procedure PintarEliminarEstancia();
+procedure EliminarEstanciaView();
     
 implementation
     uses crt;
 
-    procedure PintarEliminarEstancia();
+    procedure EliminarEstanciaView();
     begin
         ClrScr();
         writeln('=============================================');

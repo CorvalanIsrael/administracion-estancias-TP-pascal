@@ -5,9 +5,9 @@ unit utils;
     
 interface
     
-procedure CrearArchivos();
-procedure InicializarPrograma();
-procedure LeerOpcionMenuPrincipal();
+procedure CrearArchivosUtil();
+procedure InicializarProgramaUtil();
+procedure LeerOpcionMenuPrincipalUtil();
 
 implementation
 
@@ -23,7 +23,7 @@ uses
     provincia_controller in 'src/controllers/provincia_controller.pas';
 
 
-    procedure CrearArchivos();
+    procedure CrearArchivosUtil();
     var carpetaData: string;
         archivoEstancias: file of TEstancia;
         resultado: string;
@@ -49,31 +49,31 @@ uses
         end;
     end;
 
-    procedure InicializarPrograma();
+    procedure InicializarProgramaUtil();
 
     begin
         try
             ClrScr();
-            CrearArchivos();
+            CrearArchivosUtil();
         except
             on E: Exception do
                 writeln('Error: ', E.Message);
         end;
     end;
 
-    procedure LeerOpcionMenuPrincipal();
+    procedure LeerOpcionMenuPrincipalUtil();
     var opcion: integer;
     begin
         readln(opcion);
 
         case opcion of
-            1: PintarAgregarEstancia();
-            2: PintarModificarEstancia();
-            3: PintarEstancias(3);
-            4: PintarEstancias(4);
-            5: PintarEstancias(5);
-            6: PintarEstancias(6);
-            7: PintarEliminarEstancia();
+            1: AgregarEstanciaView();
+            2: ModificarEstanciaView();
+            3: EstanciasView(3);
+            4: EstanciasView(4);
+            5: EstanciasView(5);
+            6: EstanciasView(6);
+            7: EliminarEstanciaView();
             8: writeln('Cerrar programa');
         end;
     end;

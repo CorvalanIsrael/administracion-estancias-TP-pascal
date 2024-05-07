@@ -7,6 +7,6 @@ uses
     menu_principal in 'src/views/menu_principal.pas';
 
 begin
-    InicializarPrograma();
-    PintarMenuPrincipal();
+    InicializarProgramaUtil();
+    MenuPrincipalView();
 end.

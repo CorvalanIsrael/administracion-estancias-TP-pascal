@@ -4,12 +4,12 @@ unit modificar_estancia;
     
 interface
         
-procedure PintarModificarEstancia();
+procedure ModificarEstanciaView();
     
 implementation
     uses crt;
 
-    procedure PintarModificarEstancia();
+    procedure ModificarEstanciaView();
     begin
         ClrScr();
         writeln('=============================================');

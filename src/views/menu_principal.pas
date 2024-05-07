@@ -4,14 +4,14 @@ unit menu_principal;
     
 interface
     
-procedure PintarMenuPrincipal();
+procedure MenuPrincipalView();
     
 
 implementation
     uses crt, 
         utils in 'src/utils/utils.pas';
 
-    procedure PintarMenuPrincipal();
+    procedure MenuPrincipalView();
     begin
         writeln(' ');
         writeln('=============================================');
@@ -27,7 +27,7 @@ implementation
         writeln('(8) Cerrar programa');
         writeln(' ');
         write('Ingrese una opcion: ');
-        LeerOpcionMenuPrincipal();
+        LeerOpcionMenuPrincipalUtil();
     end;
 
 end.

@@ -33,11 +33,11 @@ interface
         (nombre: 'Tucumán'; codProvincia: 'AR-T'; numeroTurismo: 200000)
     );
 
-    function ConstProvincias(): TListaDeProvincias;
+    function ProvinciasConst(): TListaDeProvincias;
 
 implementation
-    function ConstProvincias(): TListaDeProvincias;
+    function ProvinciasConst(): TListaDeProvincias;
     begin
-        ConstProvincias:= PROVINCIAS;
+        ProvinciasConst:= PROVINCIAS;
     end;
 end. 

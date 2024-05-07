@@ -5,12 +5,12 @@ unit lista_estancias;
 interface
     
     
-procedure PintarEstancias(opcion: integer);
+procedure EstanciasView(opcion: integer);
     
 implementation
     uses crt;
     
-    procedure PintarEstancias(opcion: integer);
+    procedure EstanciasView(opcion: integer);
     begin
         ClrScr();
         writeln('=============================================');

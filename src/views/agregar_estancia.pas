@@ -9,7 +9,7 @@ interface
     estancia_model in 'src/models/estancia_model.pas',
     lista_provincia in 'src/views/lista_provincia.pas';
     
-    procedure PintarAgregarEstancia();
+    procedure AgregarEstanciaView();
     function crearEstancia(): TEstancia;
     
 implementation
@@ -36,7 +36,7 @@ implementation
         readln(nuevoDomicilio.ciudad);
         write('Ingrese codigo postal: ');
         readln(nuevoDomicilio.codigoPostal);
-        mostrarProvinciasView();
+        ProvinciasView();
         write('Ingrese codigo provincia: ');
         readln(nuevoDomicilio.codProvincia);
 
@@ -45,7 +45,7 @@ implementation
     end;
 
 
-    procedure PintarAgregarEstancia();
+    procedure AgregarEstanciaView();
     var 
     nuevaEstancia: TEstancia;
 
@@ -58,6 +58,6 @@ implementation
         
         nuevaEstancia:= crearEstancia();
 
-        guardarEstancia(nuevaEstancia);
+        guardarEstanciaController(nuevaEstancia);
     end;
 end.

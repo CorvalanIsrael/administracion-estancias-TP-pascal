@@ -7,11 +7,11 @@ interface
         provincia_model in 'src/models/provincia_model.pas',
         provincia_controller in 'src/controller/provincia_controller.pas';
     
-    procedure mostrarProvinciasView();
+    procedure ProvinciasView();
 
 implementation
 
-    procedure mostrarProvinciasView();
+    procedure ProvinciasView();
     var provincia: TProvincia;
         provinciasEncontradas: TListaDeProvincias; 
     begin
