@@ -25,6 +25,7 @@ implementation
             
             assignFile(archivo, 'data/estancias.dat');
             reset(archivo);
+            seek(archivo, fileSize(archivo));
             write(archivo, PEstancia);
 
             closeFile(archivo);
@@ -57,11 +58,24 @@ implementation
     end;
 
     function obtenerTodasLasEstanciasController(): TListaDeEstancias;
-    var estanciasEncontradas: TListaDeEstancias;
+    var 
+    archivo: file of TEstancia;
+    estancia: TEstancia;
+    estanciasEncontradas: TListaDeEstancias;
     begin
-        // TODO: lógica para buscar todas las estancias en archivo
-        writeln('Buscando estancias.');
-        obtenerTodasLasEstanciasController:= estanciasEncontradas;
+        assignFile(archivo, 'data/estancias.dat');
+        reset(archivo);
+        try
+            while not Eof(archivo) do
+            begin
+                read(archivo, estancia);
+                setLength(estanciasEncontradas, length(estanciasEncontradas) + 1);
+                estanciasEncontradas[high(estanciasEncontradas)]:= estancia;
+            end;
+        finally
+            closeFile(archivo);
+            obtenerTodasLasEstanciasController:= estanciasEncontradas;
+        end;
     end;
 
     function obtenerEstanciasConPiscinaController(): TListaDeEstancias;
