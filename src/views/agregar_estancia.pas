@@ -90,8 +90,11 @@ implementation
         write('Ingrese ciudad: ');
         readln(nuevoDomicilio.ciudad);
         nuevoDomicilio.codProvincia:= validarCodigoProvincia();
-        nuevaEstancia.domicilio:= nuevoDomicilio;
         // =============================
+        write('Ingrese telefono: ');
+        readln(nuevaEstancia.telefono);
+        write('Ingrese email: ');
+        readln(nuevaEstancia.email);
         write('Ingrese codigo postal: ');
         readln(nuevoDomicilio.codigoPostal);
         write('Ingrese las caracteristicas: ');
@@ -100,6 +103,7 @@ implementation
         write('Ingrese la capacidad máxima: ');
         readln(nuevaEstancia.capacidadMaxima);
 
+        nuevaEstancia.domicilio:= nuevoDomicilio;
         crearEstancia:= nuevaEstancia;
     end;
 
