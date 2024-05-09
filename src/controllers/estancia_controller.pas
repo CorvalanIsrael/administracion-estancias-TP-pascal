@@ -1,4 +1,5 @@
 {$UNITPATH models}
+{$mode Delphi}
 
 unit estancia_controller;
 
@@ -16,10 +17,22 @@ interface
 implementation
 
     function guardarEstanciaController(PEstancia: TEstancia): string;
+    var
+        archivo: file of TEstancia;
     begin
-        // TODO: lógica para guardar en archivo
-        writeln('Guardando estancia: ', PEstancia.nombre);
-        guardarEstanciaController:= 'Estancia guardada con éxito';
+        try
+            PEstancia.id:= 'identificarUnico'; // TODO: GenerarIdUtil()
+            
+            assignFile(archivo, 'data/estancias.dat');
+            reset(archivo);
+            write(archivo, PEstancia);
+
+            closeFile(archivo);
+            guardarEstanciaController:= 'Estancia creada con éxito' + PEstancia.id;
+        except
+            on E: TObject do
+                guardarEstanciaController:= 'Error crear una estancia.';
+        end;
     end;
 
     function modificarEstanciaController(PId: string): string;
