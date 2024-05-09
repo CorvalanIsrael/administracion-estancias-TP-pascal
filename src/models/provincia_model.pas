@@ -9,6 +9,7 @@ type TProvincia = record
 end;
 
 type TListaDeProvincias = array of TProvincia;
+type TCodigosProvincia = array of string;
 
 implementation
     
