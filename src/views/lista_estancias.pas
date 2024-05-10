@@ -5,6 +5,7 @@ unit lista_estancias;
 interface
     uses 
     crt,
+    utils in 'src/utils/utils.pas',
     estancia_model in 'src/models/estancia_model.pas',
     estancia_controller in 'src/controller/estancia_controller.pas';
 
@@ -47,6 +48,7 @@ implementation
     procedure EstanciasView(opcion: integer);
     var 
     estanciasEncontradas: TListaDeEstancias;
+    codigoProvincia: string;
     begin
         ClrScr();
         writeln('=============================================');
@@ -59,7 +61,11 @@ implementation
                     estanciasEncontradas:= obtenerTodasLasEstanciasController();
                     PintarEstancia(estanciasEncontradas);
                 end;
-            5: writeln('Mostrando todas las estancias de una provincia');
+            5:  begin
+                    codigoProvincia:= ValidarCodigoProvinciaUtil();
+                    estanciasEncontradas:= obtenerEstanciasDeUnaProvinciaController(codigoProvincia);
+                    PintarEstancia(estanciasEncontradas);
+                end;
             6:  begin
                     estanciasEncontradas:= obtenerEstanciasConPiscinaController();
                     PintarEstancia(estanciasEncontradas);
