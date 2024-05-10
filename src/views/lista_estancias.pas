@@ -48,7 +48,9 @@ implementation
     procedure EstanciasView(opcion: integer);
     var 
     estanciasEncontradas: TListaDeEstancias;
+    idEstancia: string;
     codigoProvincia: string;
+
     begin
         ClrScr();
         writeln('=============================================');
@@ -56,7 +58,20 @@ implementation
         writeln('=============================================');
 
         case opcion of
-            3: writeln('Mostrando una estancia');
+            3:  begin
+                    write('Ingrese el id de la estancia: ');
+                    readln(idEstancia);
+                    estanciasEncontradas:= obtenerEstanciaController(idEstancia);
+                    if (length(estanciasEncontradas) <> 0) then
+                    begin
+                        PintarEstancia(estanciasEncontradas);
+                    end else
+                    begin
+                        writeln(' ');
+                        writeln('No se encontro ninguna estancia con el id: ', idEstancia);
+                        writeln(' ');
+                    end;
+                end;
             4:  begin
                     estanciasEncontradas:= obtenerTodasLasEstanciasController();
                     PintarEstancia(estanciasEncontradas);

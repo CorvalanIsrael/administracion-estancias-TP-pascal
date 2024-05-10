@@ -9,7 +9,7 @@ interface
     function guardarEstanciaController(PEstancia: TEstancia): string;
     function modificarEstanciaController(PId: string): string;
     function eliminarEstanciaController(PId: string): string;
-    function obtenerEstanciaController(PId: string): string;
+    function obtenerEstanciaController(PId: string): TListaDeEstancias;
     function obtenerTodasLasEstanciasController(): TListaDeEstancias;
     function obtenerEstanciasConPiscinaController(): TListaDeEstancias;
     function obtenerEstanciasDeUnaProvinciaController(PCodigoProvincia: string): TListaDeEstancias;
@@ -50,11 +50,28 @@ implementation
         eliminarEstanciaController:= 'Estancia eliminada con éxito';
     end;
 
-    function obtenerEstanciaController(PId: string): string;
+    function obtenerEstanciaController(PId: string): TListaDeEstancias;
+    var 
+    archivo: file of TEstancia;
+    estancia: TEstancia;
+    estanciasEncontradas: TListaDeEstancias;
     begin
-        // TODO: lógica para buscar en archivo
-        writeln('Buscando estancia: ', PId);
-        obtenerEstanciaController:= 'Estancia encontrada con éxito';
+        assignFile(archivo, 'data/estancias.dat');
+        reset(archivo);
+        try
+            while not Eof(archivo) do
+            begin
+                read(archivo, estancia);
+                if (estancia.id = PId) then 
+                begin
+                    setLength(estanciasEncontradas, length(estanciasEncontradas) + 1);
+                    estanciasEncontradas[high(estanciasEncontradas)]:= estancia;
+                end; 
+            end;
+        finally
+            closeFile(archivo);
+            obtenerEstanciaController:= estanciasEncontradas;
+        end;
     end;
 
     function obtenerTodasLasEstanciasController(): TListaDeEstancias;
