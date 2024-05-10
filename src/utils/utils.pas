@@ -8,20 +8,52 @@ interface
 procedure CrearArchivosUtil();
 procedure InicializarProgramaUtil();
 procedure LeerOpcionMenuPrincipalUtil();
+function ValidarCodigoProvinciaUtil(): string;
 
 implementation
 
 uses
     crt,
     sysUtils,
+    constantes in 'src/utils/constantes.pas',
+
     provincia_model in 'src/models/provincia_model.pas',
     estancia_model in 'src/models/estancia_model.pas',
+
     agregar_estancia in 'src/views/agregar_estancia.pas',
     eliminar_estancia in 'src/views/eliminar_estancia.pas',
     modificar_estancia in 'src/views/modificar_estancia.pas',
     lista_estancias in 'src/views/lista_estancias.pas',
+    lista_provincia in 'src/views/lista_provincia.pas',
+
     provincia_controller in 'src/controllers/provincia_controller.pas';
 
+    function ValidarCodigoProvinciaUtil(): string;
+    var 
+    codProvincia, codigo: string;
+    codigoValido: boolean;
+    codigosProvincias: TCodigosProvincia;
+    begin
+        codigoValido:= false;
+        codigosProvincias:= CodigosProvinciasConst();
+        ProvinciasView();
+
+        repeat 
+            write('Ingrese codigo provincia: ');
+            readln(codProvincia);
+
+            for codigo in codigosProvincias do
+            begin
+                if (codProvincia = codigo) then
+                begin
+                    codigoValido:= true;
+                end;
+            end;
+
+        until (codigoValido = true);
+
+        ValidarCodigoProvinciaUtil:= codProvincia;
+    end;
 
     procedure CrearArchivosUtil();
     var carpetaData: string;

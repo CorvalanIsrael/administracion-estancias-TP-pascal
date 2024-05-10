@@ -5,46 +5,17 @@ unit agregar_estancia;
 interface
     uses 
     crt,
-    constantes in 'src/utils/constantes.pas',
+    utils in 'src/utils/utils.pas',
     estancia_controller in 'src/controllers/estancia_controller.pas',
     estancia_model in 'src/models/estancia_model.pas',
-    provincia_model in 'src/models/provincia_model.pas',
-    lista_provincia in 'src/views/lista_provincia.pas';
+    provincia_model in 'src/models/provincia_model.pas';
     
     procedure AgregarEstanciaView();
-    function validarCodigoProvincia(): string;
     function validarTienePiscina(): boolean;
     function crearEstancia(): TEstancia;
     
 
 implementation
-
-    function validarCodigoProvincia(): string;
-    var 
-    codProvincia, codigo: string;
-    codigoValido: boolean;
-    codigosProvincias: TCodigosProvincia;
-    begin
-        codigoValido:= false;
-        codigosProvincias:= CodigosProvinciasConst();
-        ProvinciasView();
-
-        repeat 
-            write('Ingrese codigo provincia: ');
-            readln(codProvincia);
-
-            for codigo in codigosProvincias do
-            begin
-                if (codProvincia = codigo) then
-                begin
-                    codigoValido:= true;
-                end;
-            end;
-
-        until (codigoValido = true);
-
-        validarCodigoProvincia:= codProvincia;
-    end;
 
     function validarTienePiscina(): boolean;
     var 
@@ -89,7 +60,7 @@ implementation
         readln(nuevoDomicilio.piso);
         write('Ingrese ciudad: ');
         readln(nuevoDomicilio.ciudad);
-        nuevoDomicilio.codProvincia:= validarCodigoProvincia();
+        nuevoDomicilio.codProvincia:= ValidarCodigoProvinciaUtil();
         // =============================
         write('Ingrese telefono: ');
         readln(nuevaEstancia.telefono);
