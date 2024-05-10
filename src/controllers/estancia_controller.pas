@@ -79,11 +79,27 @@ implementation
     end;
 
     function obtenerEstanciasConPiscinaController(): TListaDeEstancias;
-    var estanciasEncontradas: TListaDeEstancias;
+    var 
+    archivo: file of TEstancia;
+    estancia: TEstancia;
+    estanciasEncontradas: TListaDeEstancias;
     begin
-        // TODO: lógica para buscar todas las estancias con piscina en archivo
-        writeln('Buscando estancias con piscina.');
-        obtenerEstanciasConPiscinaController:= estanciasEncontradas;
+        assignFile(archivo, 'data/estancias.dat');
+        reset(archivo);
+        try
+            while not Eof(archivo) do
+            begin
+                read(archivo, estancia);
+                if (estancia.tienePiscina) then 
+                begin
+                    setLength(estanciasEncontradas, length(estanciasEncontradas) + 1);
+                    estanciasEncontradas[high(estanciasEncontradas)]:= estancia;
+                end; 
+            end;
+        finally
+            closeFile(archivo);
+            obtenerEstanciasConPiscinaController:= estanciasEncontradas;
+        end;
     end;
 
     function obtenerEstanciasDeUnaProvinciaController(PCodigoProvincia: string): TListaDeEstancias;

@@ -60,7 +60,10 @@ implementation
                     PintarEstancia(estanciasEncontradas);
                 end;
             5: writeln('Mostrando todas las estancias de una provincia');
-            6: writeln('Mostrando todas las estancias con piscina');
+            6:  begin
+                    estanciasEncontradas:= obtenerEstanciasConPiscinaController();
+                    PintarEstancia(estanciasEncontradas);
+                end;
         end;
     end;
 
