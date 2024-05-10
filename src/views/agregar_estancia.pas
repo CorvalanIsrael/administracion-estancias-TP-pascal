@@ -11,34 +11,10 @@ interface
     provincia_model in 'src/models/provincia_model.pas';
     
     procedure AgregarEstanciaView();
-    function validarTienePiscina(): boolean;
     function crearEstancia(): TEstancia;
     
 
 implementation
-
-    function validarTienePiscina(): boolean;
-    var 
-    respuestaInput: string;
-    respuesta: boolean;
-    begin
-        repeat
-            write('Ingrese si posee piscina (S/N): ');
-            readln(respuestaInput);
-            if ((respuestaInput = 's') or (respuestaInput = 'S')) then
-            begin
-                respuestaInput:= 'S';
-                respuesta:= true;
-            end;
-            if ((respuestaInput = 'n') or (respuestaInput = 'N')) then
-            begin
-                respuestaInput:= 'N';
-                respuesta:= false;
-            end;
-        until ((respuestaInput = 'S') or (respuestaInput = 'N'));
-    
-        validarTienePiscina:= respuesta;
-    end;
 
     function crearEstancia(): TEstancia;
     var 
@@ -70,7 +46,7 @@ implementation
         readln(nuevoDomicilio.codigoPostal);
         write('Ingrese las caracteristicas: ');
         readln(nuevaEstancia.caracteristicas);
-        nuevaEstancia.tienePiscina:= validarTienePiscina();
+        nuevaEstancia.tienePiscina:= ValidarRespuestaSiONoUtil('Ingrese si posee piscina');
         write('Ingrese la capacidad máxima: ');
         readln(nuevaEstancia.capacidadMaxima);
 

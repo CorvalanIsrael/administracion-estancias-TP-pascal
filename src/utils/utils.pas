@@ -9,6 +9,7 @@ procedure CrearArchivosUtil();
 procedure InicializarProgramaUtil();
 procedure LeerOpcionMenuPrincipalUtil();
 function ValidarCodigoProvinciaUtil(): string;
+function ValidarRespuestaSiONoUtil(PPregunta: string): boolean;
 
 implementation
 
@@ -27,6 +28,30 @@ uses
     lista_provincia in 'src/views/lista_provincia.pas',
 
     provincia_controller in 'src/controllers/provincia_controller.pas';
+
+    function ValidarRespuestaSiONoUtil(PPregunta: string): boolean;
+    var 
+    respuestaInput: string;
+    respuesta: boolean;
+    begin
+        repeat
+            write(PPregunta, ' (S/N): ');
+            readln(respuestaInput);
+            if ((respuestaInput = 's') or (respuestaInput = 'S')) then
+            begin
+                respuestaInput:= 'S';
+                respuesta:= true;
+            end;
+            if ((respuestaInput = 'n') or (respuestaInput = 'N')) then
+            begin
+                respuestaInput:= 'N';
+                respuesta:= false;
+            end;
+        until ((respuestaInput = 'S') or (respuestaInput = 'N'));
+    
+        ValidarRespuestaSiONoUtil:= respuesta;
+    end;
+
 
     function ValidarCodigoProvinciaUtil(): string;
     var 
