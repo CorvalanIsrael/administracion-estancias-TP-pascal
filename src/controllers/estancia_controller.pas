@@ -21,7 +21,7 @@ implementation
         archivo: file of TEstancia;
     begin
         try
-            PEstancia.id:= 'identificarUnico'; // TODO: GenerarIdUtil()
+            PEstancia.id:= 'identificadorUnico'; // TODO: GenerarIdUtil()
             
             assignFile(archivo, 'data/estancias.dat');
             reset(archivo);
@@ -44,10 +44,50 @@ implementation
     end;
 
     function eliminarEstanciaController(PId: string): string;
+    var
+    archivoTemp: file of TEstancia;
+    archivoOriginal: file of TEstancia;
+    estancia: TEstancia;
+    seEncontro: boolean;
+
     begin
-        // TODO: lógica para eliminar en archivo
-        writeln('Eliminando estancia: ', PId);
-        eliminarEstanciaController:= 'Estancia eliminada con éxito';
+        try
+            assignFile(archivoOriginal, 'data/estancias.dat');
+            reset(archivoOriginal);
+
+            assignFile(archivoTemp, 'data/temp.dat');
+            rewrite(archivoTemp);
+            
+            while not Eof(archivoOriginal) do
+            begin
+                read(archivoOriginal, estancia);
+                if (estancia.id <> PId) then
+                begin
+                    write(archivoTemp, estancia);
+                end else 
+                begin
+                    seEncontro:= true;
+                end;
+            end;
+
+            closeFile(archivoOriginal);
+            closeFile(archivoTemp);
+
+            erase(archivoOriginal);
+            rename(archivoTemp, 'data/estancias.dat');
+
+            if (seEncontro) then
+            begin
+                eliminarEstanciaController:= 'Estancia eliminada con éxito';
+            end else 
+            begin
+                eliminarEstanciaController:= 'No se encontro una estancia con el id: ' + PId;
+            end;
+
+        except
+            on E: TObject do
+                eliminarEstanciaController := 'Error al eliminar la estancia';
+        end;
     end;
 
     function obtenerEstanciaController(PId: string): TListaDeEstancias;
