@@ -18,7 +18,7 @@ implementation
 
     function guardarEstanciaController(PEstancia: TEstancia): string;
     var
-        archivo: file of TEstancia;
+    archivo: file of TEstancia;
     begin
         try
             PEstancia.id:= 'identificadorUnico'; // TODO: GenerarIdUtil()
@@ -49,7 +49,6 @@ implementation
     archivoOriginal: file of TEstancia;
     estancia: TEstancia;
     seEncontro: boolean;
-
     begin
         try
             assignFile(archivoOriginal, 'data/estancias.dat');

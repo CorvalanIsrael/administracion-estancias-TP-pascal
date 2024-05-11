@@ -4,30 +4,23 @@
 unit utils;
     
 interface
-    
-procedure CrearArchivosUtil();
-procedure InicializarProgramaUtil();
-procedure LeerOpcionMenuPrincipalUtil();
-function ValidarCodigoProvinciaUtil(): string;
-function ValidarRespuestaSiONoUtil(PPregunta: string): boolean;
+
+    uses
+        crt,
+        sysUtils,
+        constantes in 'src/utils/constantes.pas',
+        provincia_model in 'src/models/provincia_model.pas',
+        estancia_model in 'src/models/estancia_model.pas',
+        provincia_controller in 'src/controllers/provincia_controller.pas',
+        lista_provincia in 'src/views/lista_provincia.pas';
+
+    procedure CrearArchivosUtil();
+    procedure InicializarProgramaUtil();
+    function ValidarCodigoProvinciaUtil(): string;
+    function ValidarRespuestaSiONoUtil(PPregunta: string): boolean;
+    function CrearEstanciaUtil(): TEstancia;
 
 implementation
-
-uses
-    crt,
-    sysUtils,
-    constantes in 'src/utils/constantes.pas',
-
-    provincia_model in 'src/models/provincia_model.pas',
-    estancia_model in 'src/models/estancia_model.pas',
-
-    agregar_estancia in 'src/views/agregar_estancia.pas',
-    eliminar_estancia in 'src/views/eliminar_estancia.pas',
-    modificar_estancia in 'src/views/modificar_estancia.pas',
-    lista_estancias in 'src/views/lista_estancias.pas',
-    lista_provincia in 'src/views/lista_provincia.pas',
-
-    provincia_controller in 'src/controllers/provincia_controller.pas';
 
     function ValidarRespuestaSiONoUtil(PPregunta: string): boolean;
     var 
@@ -80,27 +73,64 @@ uses
         ValidarCodigoProvinciaUtil:= codProvincia;
     end;
 
-    procedure CrearArchivosUtil();
-    var carpetaData: string;
-        archivoEstancias: file of TEstancia;
-        resultado: string;
+    function CrearEstanciaUtil(): TEstancia;
+    var 
+    nuevaEstancia: TEstancia;
+    nuevoDomicilio: TDomicilio;
     begin
-        carpetaData := 'data';
+        write('Ingrese el nombre de la estancia: ');
+        readln(nuevaEstancia.nombre);
+        write('Ingrese el nombre y apellido del propietario: ');
+        readln(nuevaEstancia.propietario);
+        write('Ingrese el DNI del propietario: ');
+        readln(nuevaEstancia.dni);
+        // ========= DOMICILIO =========
+        write('Ingrese calle: ');
+        readln(nuevoDomicilio.calle);
+        write('Ingrese numero de vivienda: ');
+        readln(nuevoDomicilio.numero);
+        write('Ingrese piso: ');
+        readln(nuevoDomicilio.piso);
+        write('Ingrese ciudad: ');
+        readln(nuevoDomicilio.ciudad);
+        nuevoDomicilio.codProvincia:= ValidarCodigoProvinciaUtil();
+        // =============================
+        write('Ingrese telefono: ');
+        readln(nuevaEstancia.telefono);
+        write('Ingrese email: ');
+        readln(nuevaEstancia.email);
+        write('Ingrese codigo postal: ');
+        readln(nuevoDomicilio.codigoPostal);
+        write('Ingrese las caracteristicas: ');
+        readln(nuevaEstancia.caracteristicas);
+        nuevaEstancia.tienePiscina:= ValidarRespuestaSiONoUtil('Ingrese si posee piscina');
+        write('Ingrese la capacidad máxima: ');
+        readln(nuevaEstancia.capacidadMaxima);
 
-        if not directoryExists(carpetaData) then
+        nuevaEstancia.domicilio:= nuevoDomicilio;
+        CrearEstanciaUtil:= nuevaEstancia;
+    end;
+
+    procedure CrearArchivosUtil();
+    var 
+    archivoEstancias: file of TEstancia;
+    resultado: string;
+    begin
+
+        if not directoryExists('data') then
         begin
-            createDir(carpetaData);
+            createDir('data');
         end;
 
-        if not fileExists(carpetaData + '\provincias.dat') then
+        if not fileExists('data/provincias.dat') then
         begin
             resultado:= crearProvinciasController();
             writeln(resultado);
         end;
 
-        if not fileExists(CarpetaData + '\estancias.dat') then
+        if not fileExists('data/estancias.dat') then
         begin
-            assignFile(archivoEstancias, carpetaData + '\estancias.dat');
+            assignFile(archivoEstancias, 'data/estancias.dat');
             rewrite(archivoEstancias);
             closeFile(archivoEstancias);
         end;
@@ -118,21 +148,4 @@ uses
         end;
     end;
 
-    procedure LeerOpcionMenuPrincipalUtil();
-    var opcion: integer;
-    begin
-        readln(opcion);
-
-        case opcion of
-            1: AgregarEstanciaView();
-            2: ModificarEstanciaView();
-            3: EstanciasView(3);
-            4: EstanciasView(4);
-            5: EstanciasView(5);
-            6: EstanciasView(6);
-            7: EliminarEstanciaView();
-            8: writeln('Cerrar programa');
-        end;
-    end;
-    
 end.
