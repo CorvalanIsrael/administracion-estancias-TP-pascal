@@ -16,6 +16,7 @@ interface
 
     procedure CrearArchivosUtil();
     procedure InicializarProgramaUtil();
+    function GenerarIdUtil(): string;
     function ValidarCodigoProvinciaUtil(): string;
     function ValidarRespuestaSiONoUtil(PPregunta: string): boolean;
     function CrearEstanciaUtil(): TEstancia;
@@ -147,6 +148,11 @@ implementation
             on E: Exception do
                 writeln('Error: ', E.Message);
         end;
+    end;
+
+    function GenerarIdUtil(): string;
+    begin
+        GenerarIdUtil := formatDateTime('yyyymmddhhnnsszzz', now);
     end;
 
     function FusionarEstanciaUtil(PEstancia: TEstancia; PEstanciaModificada: TEstancia): TEstancia;

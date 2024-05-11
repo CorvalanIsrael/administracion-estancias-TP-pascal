@@ -23,7 +23,7 @@ implementation
     archivo: file of TEstancia;
     begin
         try
-            PEstancia.id:= 'identificadorUnico'; // TODO: GenerarIdUtil()
+            PEstancia.id:= GenerarIdUtil();
             
             assignFile(archivo, 'data/estancias.dat');
             reset(archivo);
