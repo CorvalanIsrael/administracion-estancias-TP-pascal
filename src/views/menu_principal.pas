@@ -1,4 +1,4 @@
-{$UNITPATH utils}
+{$UNITPATH views, controllers}
 
 unit menu_principal;
     
@@ -13,15 +13,16 @@ interface
         provincia_controller in 'src/controllers/provincia_controller.pas';
 
     procedure MenuPrincipalView();
-    procedure LeerOpcionMenuPrincipal();
+    function LeerOpcionMenuPrincipal(): boolean;
     
 implementation
 
-    procedure LeerOpcionMenuPrincipal();
+    function LeerOpcionMenuPrincipal(): boolean;
     var 
     opcion: integer;
     begin
         readln(opcion);
+        LeerOpcionMenuPrincipal:= false;
 
         case opcion of
             1: AgregarEstanciaView();
@@ -31,12 +32,21 @@ implementation
             5: EstanciasView(5);
             6: EstanciasView(6);
             7: EliminarEstanciaView();
-            8: writeln('Cerrar programa');
+            8:  begin
+                    writeln(' ');
+                    writeln('Cerrarando programa...');
+                    LeerOpcionMenuPrincipal:= true;
+                end;
+            else 
         end;
     end;    
 
     procedure MenuPrincipalView();
+    var
+    cerrarPrograma: boolean;
     begin
+        cerrarPrograma:= false;
+        ClrScr();
         writeln(' ');
         writeln('=============================================');
         writeln('            SELECCIONA UNA OPCION            ');
@@ -51,7 +61,15 @@ implementation
         writeln('(8) Cerrar programa');
         writeln(' ');
         write('Ingrese una opcion: ');
-        LeerOpcionMenuPrincipal();
+        cerrarPrograma:= LeerOpcionMenuPrincipal();
+
+        if (cerrarPrograma = false) then
+        begin
+            writeln(' ');
+            writeln('Presiona una tecla para volver al menú principal...');
+            readln();
+            MenuPrincipalView();
+        end;
     end;
 
 end.
