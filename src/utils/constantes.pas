@@ -3,7 +3,9 @@
 unit constantes;
 
 interface
-    uses provincia_model in 'src/models/provincia_model.pas';
+    uses 
+        estancia_model in 'src/models/estancia_model.pas',
+        provincia_model in 'src/models/provincia_model.pas';
 
     const COD_PROVINCIAS: TCodigosProvincia = ('AR-B', 'AR-C', 'AR-K', 'AR-H','AR-U','AR-X','AR-W','AR-E','AR-P','AR-Y','AR-L','AR-F','AR-M','AR-N','AR-Q','AR-R','AR-A','AR-J','AR-D','AR-Z','AR-S','AR-G','AR-V','AR-T');
 
@@ -33,10 +35,50 @@ interface
         (nombre: 'Tierra del Fuego, Antártida e Islas del Atlántico Sur'; codProvincia: 'AR-V'; numeroTurismo: 50000),
         (nombre: 'Tucumán'; codProvincia: 'AR-T'; numeroTurismo: 200000)
     );
-
+    
+    const ESTANCIAS_MOCK: TListaDeEstancias = (
+        (
+            id: 'mock-2';
+            nombre: 'Casa de los Simpson';
+            propietario: 'Homer Simpson';
+            dni: '87654321B';
+            domicilio: (
+                calle: 'Avenida Siempreviva';
+                numero: '742';
+                piso: '1';
+                ciudad: 'Springfield';
+                codProvincia: 'SP';
+                codigoPostal: '54321';
+            );
+            telefono: '123456789';
+            email: 'homer@example.com';
+            caracteristicas: 'Hogar familiar';
+            tienePiscina: False;
+            capacidadMaxima: 6;
+        ),
+        (
+        id: 'mock-1';
+        nombre: 'Casa del Sr. Burns';
+        propietario: 'Sr. Burns';
+        dni: '12345678A';
+        domicilio: (
+            calle: 'Calle Falsa';
+            numero: '123';
+            piso: '2';
+            ciudad: 'Springfield';
+            codProvincia: 'SP';
+            codigoPostal: '12345';
+        );
+        telefono: '987654321';
+        email: 'burns@example.com';
+        caracteristicas: 'Mansión lujosa';
+        tienePiscina: True;
+        capacidadMaxima: 10;
+    ));
 
     function ProvinciasConst(): TListaDeProvincias;
     function CodigosProvinciasConst(): TCodigosProvincia;
+    function EstanciasMockConst(): TListaDeEstancias;
 
 implementation
     function ProvinciasConst(): TListaDeProvincias;
@@ -47,5 +89,10 @@ implementation
     function CodigosProvinciasConst(): TCodigosProvincia ;
     begin
         CodigosProvinciasConst:= COD_PROVINCIAS;
+    end;
+
+    function EstanciasMockConst(): TListaDeEstancias;
+    begin
+        EstanciasMockConst:= ESTANCIAS_MOCK;
     end;
 end. 

@@ -21,6 +21,7 @@ interface
     function ValidarRespuestaSiONoUtil(PPregunta: string): boolean;
     function CrearEstanciaUtil(): TEstancia;
     function FusionarEstanciaUtil(PEstancia: TEstancia; PEstanciaModificada: TEstancia): TEstancia;
+    function crearEstanciasMock(): string;
 
 implementation
 
@@ -113,6 +114,30 @@ implementation
         CrearEstanciaUtil:= nuevaEstancia;
     end;
 
+    function crearEstanciasMock(): string;
+    var 
+        archivo: file of TEstancia;
+        estancias: TListaDeEstancias;
+        estancia: TEstancia;
+    begin
+        estancias:= EstanciasMockConst();
+        try
+            assignFile(archivo, 'data/estancias.dat');
+            rewrite(archivo);
+
+            for estancia in estancias do
+            begin
+                write(archivo, estancia);
+            end;
+            
+            closeFile(archivo);
+            crearEstanciasMock:= 'Estancias de prueba insertadas con éxito.'
+        except
+            on E: Exception do
+                crearEstanciasMock:= 'Error insertar las estancias de prueba: ' + E.Message;
+        end;
+    end;
+
     procedure CrearArchivosUtil();
     var 
     archivoEstancias: file of TEstancia;
@@ -132,9 +157,8 @@ implementation
 
         if not fileExists('data/estancias.dat') then
         begin
-            assignFile(archivoEstancias, 'data/estancias.dat');
-            rewrite(archivoEstancias);
-            closeFile(archivoEstancias);
+            resultado:= crearEstanciasMock();
+            writeln(resultado);
         end;
     end;
 
