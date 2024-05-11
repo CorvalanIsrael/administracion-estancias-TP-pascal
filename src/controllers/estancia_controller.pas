@@ -4,15 +4,17 @@
 unit estancia_controller;
 
 interface
-    uses estancia_model in 'src/models/estancia_model.pas';
+    uses 
+        utils in 'src/utils/utils.pas',
+        estancia_model in 'src/models/estancia_model.pas';
 
     function guardarEstanciaController(PEstancia: TEstancia): string;
-    function modificarEstanciaController(PId: string): string;
     function eliminarEstanciaController(PId: string): string;
     function obtenerEstanciaController(PId: string): TListaDeEstancias;
     function obtenerTodasLasEstanciasController(): TListaDeEstancias;
     function obtenerEstanciasConPiscinaController(): TListaDeEstancias;
     function obtenerEstanciasDeUnaProvinciaController(PCodigoProvincia: string): TListaDeEstancias;
+    function modificarEstanciaController(PEstancia: TEstancia; PEstanciaModificada: TEstancia): string;
 
 implementation
 
@@ -34,13 +36,6 @@ implementation
             on E: TObject do
                 guardarEstanciaController:= 'Error crear una estancia.';
         end;
-    end;
-
-    function modificarEstanciaController(PId: string): string;
-    begin
-        // TODO: lógica para actualizar en archivo
-        writeln('Modificando estancia: ', PId);
-        modificarEstanciaController:= 'Estancia modificada con éxito';
     end;
 
     function eliminarEstanciaController(PId: string): string;
@@ -179,6 +174,47 @@ implementation
         finally
             closeFile(archivo);
             obtenerEstanciasDeUnaProvinciaController:= estanciasEncontradas;
+        end;
+    end;
+
+    function modificarEstanciaController(PEstancia: TEstancia; PEstanciaModificada: TEstancia): string;
+    var
+    estanciaModificada: TEstancia;
+    archivoTemp: file of TEstancia;
+    archivoOriginal: file of TEstancia;
+    estancia: TEstancia;
+    seModifico: boolean;
+    begin
+        estanciaModificada:= FusionarEstanciaUtil(PEstancia, PEstanciaModificada);
+        try
+            assignFile(archivoOriginal, 'data/estancias.dat');
+            reset(archivoOriginal);
+
+            assignFile(archivoTemp, 'data/temp.dat');
+            rewrite(archivoTemp);
+            
+            while not Eof(archivoOriginal) do
+            begin
+                read(archivoOriginal, estancia);
+                if (estancia.id <> estanciaModificada.id) then
+                begin
+                    write(archivoTemp, estancia);
+                end else 
+                begin
+                    write(archivoTemp, estanciaModificada);
+                    modificarEstanciaController:= 'Estancia modificada con éxito.';
+                end;
+            end;
+
+            closeFile(archivoOriginal);
+            closeFile(archivoTemp);
+
+            erase(archivoOriginal);
+            rename(archivoTemp, 'data/estancias.dat');
+            writeln(estanciaModificada.nombre);
+        except
+            on E: TObject do
+                modificarEstanciaController := 'Error al modificar la estancia.';
         end;
     end;
 end.
