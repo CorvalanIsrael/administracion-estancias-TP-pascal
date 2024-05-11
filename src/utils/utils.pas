@@ -19,6 +19,7 @@ interface
     function ValidarCodigoProvinciaUtil(): string;
     function ValidarRespuestaSiONoUtil(PPregunta: string): boolean;
     function CrearEstanciaUtil(): TEstancia;
+    function FusionarEstanciaUtil(PEstancia: TEstancia; PEstanciaModificada: TEstancia): TEstancia;
 
 implementation
 
@@ -146,6 +147,113 @@ implementation
             on E: Exception do
                 writeln('Error: ', E.Message);
         end;
+    end;
+
+    function FusionarEstanciaUtil(PEstancia: TEstancia; PEstanciaModificada: TEstancia): TEstancia;
+    var
+    estanciaFucion: TEstancia;
+    begin
+        if (PEstanciaModificada.nombre <> '') then
+        begin
+            estanciaFucion.nombre:= PEstanciaModificada.nombre;
+        end else 
+        begin
+            estanciaFucion.nombre:= PEstancia.nombre;
+        end;
+
+        if (PEstanciaModificada.propietario <> '') then
+        begin
+            estanciaFucion.propietario:= PEstanciaModificada.propietario;
+        end else 
+        begin
+            estanciaFucion.propietario:= PEstancia.propietario;
+        end;
+
+        if (PEstanciaModificada.dni <> '') then
+        begin
+            estanciaFucion.dni:= PEstanciaModificada.dni;
+        end else 
+            estanciaFucion.dni:= PEstancia.dni;
+        begin
+        end;
+
+        if (PEstanciaModificada.domicilio.calle <> '') then
+        begin
+            estanciaFucion.domicilio.calle:= PEstanciaModificada.domicilio.calle;
+        end else 
+        begin
+            estanciaFucion.domicilio.calle:= PEstancia.domicilio.calle;
+        end;
+
+        if (PEstanciaModificada.domicilio.numero <> '') then
+        begin
+            estanciaFucion.domicilio.numero:= PEstanciaModificada.domicilio.numero;
+        end else 
+        begin
+            estanciaFucion.domicilio.numero:= PEstancia.domicilio.numero;
+        end;
+
+        if (PEstanciaModificada.domicilio.piso <> '') then
+        begin
+            estanciaFucion.domicilio.piso:= PEstanciaModificada.domicilio.piso;
+        end else 
+        begin
+            estanciaFucion.domicilio.piso:= PEstancia.domicilio.piso
+        end;
+
+        if (PEstanciaModificada.domicilio.ciudad <> '') then
+        begin
+            estanciaFucion.domicilio.ciudad:= PEstanciaModificada.domicilio.ciudad;
+        end else 
+        begin
+            estanciaFucion.domicilio.ciudad:= PEstancia.domicilio.ciudad;
+        end;
+
+        if (PEstanciaModificada.domicilio.codigoPostal <> '') then
+        begin
+            estanciaFucion.domicilio.codigoPostal:= PEstanciaModificada.domicilio.codigoPostal;
+        end else 
+        begin
+            estanciaFucion.domicilio.codigoPostal:= PEstancia.domicilio.codigoPostal;
+        end;
+
+        if (PEstanciaModificada.telefono <> '') then
+        begin
+            estanciaFucion.telefono:= PEstanciaModificada.telefono;
+        end else 
+        begin
+            estanciaFucion.telefono:= PEstancia.telefono;
+        end;
+
+        if (PEstanciaModificada.email <> '') then
+        begin
+            estanciaFucion.email:= PEstanciaModificada.email;
+        end else 
+        begin
+            estanciaFucion.email:= PEstancia.email;
+        end;
+
+        if (PEstanciaModificada.caracteristicas <> '') then
+        begin
+            estanciaFucion.caracteristicas:= PEstanciaModificada.caracteristicas;
+        end else 
+        begin
+            estanciaFucion.caracteristicas:= PEstancia.caracteristicas;
+        end;
+
+        if (PEstanciaModificada.capacidadMaxima <> 0) then
+        begin
+            estanciaFucion.capacidadMaxima:= PEstanciaModificada.capacidadMaxima;
+        end else 
+        begin
+            estanciaFucion.capacidadMaxima:= PEstancia.capacidadMaxima;
+        end;
+
+        estanciaFucion.id:= PEstancia.id;
+        estanciaFucion.tienePiscina:= PEstanciaModificada.tienePiscina;
+        estanciaFucion.domicilio.codProvincia:= PEstanciaModificada.domicilio.codProvincia;
+
+        fusionarEstanciaUtil:= estanciaFucion;
     end;
 
 end.
