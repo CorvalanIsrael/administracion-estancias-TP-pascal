@@ -5,9 +5,9 @@ unit lista_estancias;
 interface
     uses 
     crt,
-    utils in 'src/utils/utils.pas',
-    estancia_model in 'src/models/estancia_model.pas',
-    estancia_controller in 'src/controller/estancia_controller.pas';
+    utils,
+    estancia_model,
+    estancia_controller;
 
 procedure EstanciasView(opcion: integer);
 procedure PintarEstancia(PListaDeEstancias: TListaDeEstancias);

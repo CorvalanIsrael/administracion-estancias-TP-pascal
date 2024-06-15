@@ -4,8 +4,8 @@ unit lista_provincia;
 
 interface
     uses 
-        provincia_model in 'src/models/provincia_model.pas',
-        provincia_controller in 'src/controllers/provincia_controller.pas';
+        provincia_model,
+        provincia_controller;
     
     procedure ProvinciasView();
 

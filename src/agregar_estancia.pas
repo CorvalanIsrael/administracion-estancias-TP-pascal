@@ -1,14 +1,14 @@
 {$UNITPATH utils, controllers, models, views}
-
+{$codepage utf-8}
 unit agregar_estancia;
     
 interface
     uses 
     crt,
-    utils in 'src/utils/utils.pas',
-    estancia_controller in 'src/controllers/estancia_controller.pas',
-    estancia_model in 'src/models/estancia_model.pas',
-    provincia_model in 'src/models/provincia_model.pas';
+    utils,
+    estancia_controller,
+    estancia_model,
+    provincia_model;
     
     procedure AgregarEstanciaView();
 
