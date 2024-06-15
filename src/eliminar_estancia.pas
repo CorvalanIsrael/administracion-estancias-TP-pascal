@@ -10,7 +10,7 @@ procedure EliminarEstanciaView();
 implementation
     uses 
         crt,
-        estancia_controller in 'src/controllers/estancia_controller.pas';
+        estancia_controller;
 
     procedure EliminarEstanciaView();
     var

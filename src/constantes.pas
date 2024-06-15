@@ -4,8 +4,8 @@ unit constantes;
 
 interface
     uses 
-        estancia_model in 'src/models/estancia_model.pas',
-        provincia_model in 'src/models/provincia_model.pas';
+        estancia_model,
+        provincia_model;
 
     const COD_PROVINCIAS: TCodigosProvincia = ('AR-B', 'AR-C', 'AR-K', 'AR-H','AR-U','AR-X','AR-W','AR-E','AR-P','AR-Y','AR-L','AR-F','AR-M','AR-N','AR-Q','AR-R','AR-A','AR-J','AR-D','AR-Z','AR-S','AR-G','AR-V','AR-T');
 

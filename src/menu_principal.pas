@@ -6,11 +6,11 @@ interface
 
     uses 
         crt, 
-        agregar_estancia in 'src/views/agregar_estancia.pas',
-        eliminar_estancia in 'src/views/eliminar_estancia.pas',
-        modificar_estancia in 'src/views/modificar_estancia.pas',
-        lista_estancias in 'src/views/lista_estancias.pas',
-        provincia_controller in 'src/controllers/provincia_controller.pas';
+        agregar_estancia,
+        eliminar_estancia,
+        modificar_estancia,
+        lista_estancias,
+        provincia_controller;
 
     procedure MenuPrincipalView();
     function LeerOpcionMenuPrincipal(): boolean;

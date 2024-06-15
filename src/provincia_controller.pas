@@ -6,8 +6,8 @@ unit provincia_controller;
 interface
     uses 
         sysUtils,
-        provincia_model in 'src/models/provincia_model.pas',
-        constantes in 'src/utils/constantes.pas';
+        provincia_model,
+        constantes;
 
     function crearProvinciasController(): string;
     function obtenerProvinciasController(): TListaDeProvincias;

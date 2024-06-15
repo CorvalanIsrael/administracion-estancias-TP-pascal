@@ -5,9 +5,8 @@ unit estancia_controller;
 
 interface
     uses 
-        utils in 'src/utils/utils.pas',
-        estancia_model in 'src/models/estancia_model.pas';
-
+        utils,
+        estancia_model;
     function guardarEstanciaController(PEstancia: TEstancia): string;
     function eliminarEstanciaController(PId: string): string;
     function obtenerEstanciaController(PId: string): TListaDeEstancias;

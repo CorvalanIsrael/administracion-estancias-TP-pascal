@@ -8,11 +8,11 @@ interface
     uses
         crt,
         sysUtils,
-        constantes in 'src/utils/constantes.pas',
-        provincia_model in 'src/models/provincia_model.pas',
-        estancia_model in 'src/models/estancia_model.pas',
-        provincia_controller in 'src/controllers/provincia_controller.pas',
-        lista_provincia in 'src/views/lista_provincia.pas';
+        constantes,
+        provincia_model, 
+        estancia_model, 
+        provincia_controller,
+        lista_provincia;
 
     procedure CrearArchivosUtil();
     procedure InicializarProgramaUtil();
